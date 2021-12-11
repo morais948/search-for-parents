@@ -17,27 +17,54 @@
 
       <VSpacer/>
 
-      <v-icon class="mt-5" v-if="showBack" @click="$router.back()" color="#6d2080">mdi-keyboard-backspace</v-icon>
+      <v-icon class="mt-5 d-block d-md-none" v-if="showBack" @click="$router.back()" color="#6d2080">mdi-keyboard-backspace</v-icon>
+      <v-btn 
+        @click="$router.back()"
+        v-if="showBack"
+        outlined
+        tile
+        color="#6d2080"
+        class="mt-5 d-none d-md-block"
+      >
+        <v-icon left>mdi-keyboard-backspace</v-icon>
+        <span>voltar</span>
+      </v-btn>
     </v-app-bar>
 
     <v-main class="mt-5">
-      <router-view/>
+      <router-view class="bounce-enter-active"/>
     </v-main>
   </v-app>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import axios from 'axios'
 
-
-export default {
-  name: 'App',
-  data: () => ({
-    //
-  }),
-  computed: {
-    showBack(){
-      return location.pathname !== '/'
-    }
-  }
-};
+  export default {
+    name: 'App',
+    computed: {
+      showBack(){
+        return location.pathname !== '/'
+      },
+      ...mapState([
+        'baseUrl'
+      ])
+    },
+    methods: {
+      searchFilters(){
+        if(localStorage.getItem('filters')){
+          axios.get(`${this.baseUrl}/all`).then(data => {
+            localStorage.setItem('filters', data)
+          })
+        }
+      }
+    },
+    mounted() {
+      this.searchFilters()
+    },
+  };
 </script>
+<style lang="scss">
+  @import './sass/app.scss';
+</style>

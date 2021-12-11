@@ -5,29 +5,19 @@
         class="d-flex"
         cols="12"
       >
-        <v-select
-          color="#6d2080"
-          v-model="defaultSelected"
-          :items="items"
-          label="Escolha uma opção"
-        ></v-select>
+        <Search />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+  import Search from '../components/Search';
 
   export default {
     name: 'Home',
-
     components: {
-      HelloWorld,
+      Search
     },
-    data: () => ({
-      defaultSelected: 'País',
-      items: ['Região', 'Capital', 'Lingua', 'País', 'Código'],
-    }),
   }
 </script>
