@@ -2,10 +2,13 @@
   <v-container fluid>
     <v-row align="center">
       <v-col
-        class="d-flex"
+        class="d-flex justify-center align-center flex-column"
         cols="12"
       >
         <Search />
+
+
+
       </v-col>
     </v-row>
   </v-container>

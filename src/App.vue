@@ -34,15 +34,21 @@
     <v-main class="mt-5">
       <router-view class="bounce-enter-active"/>
     </v-main>
+    <v-footer class="d-flex justify-center" color="white">
+      <Paginate :list="$store.state.countries" />
+    </v-footer>
   </v-app>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import axios from 'axios'
+  import Paginate from './components/Paginate'
 
   export default {
     name: 'App',
+    components: {
+      Paginate
+    },
     computed: {
       showBack(){
         return location.pathname !== '/'
@@ -51,17 +57,8 @@
         'baseUrl'
       ])
     },
-    methods: {
-      searchFilters(){
-        if(localStorage.getItem('filters')){
-          axios.get(`${this.baseUrl}/all`).then(data => {
-            localStorage.setItem('filters', data)
-          })
-        }
-      }
-    },
     mounted() {
-      this.searchFilters()
+      this.$store.dispatch('getData')
     },
   };
 </script>
