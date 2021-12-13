@@ -22,9 +22,11 @@
                     ></v-select>
                 </v-container>
 
+                
                 <div v-if="pagination">      
-                    <div v-for="(item, i) in pagination[`page-${page}`]" :key="i">
-                        <v-img
+                    <div v-for="(item, i) in pagination[`${page - 1}`]" :key="i">
+                          <v-img
+                            class="mt-4"
                             max-height="150"
                             max-width="250"
                             contain
@@ -33,6 +35,7 @@
                         ></v-img>
                     </div>
                 </div>
+                
             </VCol>
         </VRow>
         <VRow>
@@ -113,35 +116,25 @@
                 await this.$store.dispatch('setCountries', res.data)
             },
             geratePagination(data){
-                let totalPages = Math.round(data.length / 10)
+          
+                let totalPages = Math.ceil(data.length / 10)
+                let paginat = []
                 let offSet = 0
-                let limit = 10
-                if(data.length < 10){
-                    limit = data.length
-                }
-
-                if(totalPages === 0){
+                if(totalPages < 1){
                     totalPages = 1
                 }
-
-                this.pagination = { }
-                this.totalPages = totalPages
-
-                for (let i = 0; i < totalPages; i++) {
-                    if(this.pagination[`page-${i + 1}`]){
-                        for(offSet; offSet < limit; offSet++){
-                            this.pagination[`page-${i + 1}`].push(data[offSet])
-                        }
-                    }else{
-                        this.pagination[`page-${i + 1}`] = []
-                        for(offSet; offSet < limit; offSet++){
-                            this.pagination[`page-${i + 1}`].push(data[offSet])
-                        }
-                    }
-                    offSet *= 2
-                    limit = offSet + 10
+                for (let index = 0; index < totalPages; index++) {
+                    paginat.push([...Array(10).keys()].map(i => {
+                        return (data[offSet++])
+                    }))
                 }
-                console.log(this.pagination)
+
+                for (const i in paginat) {
+                    paginat[i] = paginat[i].filter(el => el !== undefined)
+                }
+          
+                this.totalPages = totalPages
+                this.pagination = paginat
             }
         },
         watch: {
