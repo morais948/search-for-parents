@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-center align-center flex-column">
         <v-img
-            v-for="(item, i) in $store.state.countries"
+            v-for="(item, i) in countries"
             :key="i"
             max-height="150"
             max-width="250"
@@ -14,5 +14,8 @@
 <script>
 export default {
     name: 'ShowCountry',
+    props: [
+        'countries'
+    ]
 }
 </script>

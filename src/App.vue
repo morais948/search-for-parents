@@ -34,21 +34,14 @@
     <v-main class="mt-5">
       <router-view class="bounce-enter-active"/>
     </v-main>
-    <v-footer class="d-flex justify-center" color="white">
-      <Paginate :list="$store.state.countries" />
-    </v-footer>
   </v-app>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import Paginate from './components/Paginate'
 
   export default {
     name: 'App',
-    components: {
-      Paginate
-    },
     computed: {
       showBack(){
         return location.pathname !== '/'
