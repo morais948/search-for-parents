@@ -17,10 +17,9 @@
 
       <VSpacer/>
 
-      <v-icon class="mt-5 d-block d-md-none" v-if="showBack" @click="$router.back()" color="#6d2080">mdi-keyboard-backspace</v-icon>
+      <v-icon class="mt-5 d-block d-md-none" @click="$router.back()" color="#6d2080">mdi-keyboard-backspace</v-icon>
       <v-btn 
         @click="$router.back()"
-        v-if="showBack"
         outlined
         tile
         color="#6d2080"
