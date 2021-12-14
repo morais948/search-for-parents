@@ -1,8 +1,9 @@
 <template>
-    <div v-if="$store.state.pagination">  
+    <div v-if="$store.state.pagination" class="d-flex flex-column justify-md-center align-md-center flex-md-row">  
         <div v-for="(item, i) in $store.state.pagination[`${$store.state.page - 1}`]" :key="i">
             <v-container>
                 <v-img
+                    max-width="300px"
                     style="cursor: pointer"
                     v-if="item.flags.png"
                     @click="select(item)"

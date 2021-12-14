@@ -13,6 +13,7 @@ export default new Vuex.Store({
         totalPages: 1,
         pagination: [],
         selectedCountry: null,
+        itemForPage: 3,
     },
     mutations: {
         getData(state, res) {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
         },
         setSelectedCountry(state, res){
             state.selectedCountry = res
+        },
+        setItemForPage(state, res){
+            state.itemForPage = res
         },
     },
     actions: {
@@ -59,6 +63,9 @@ export default new Vuex.Store({
         },
         setSelectedCountry({ commit }, data){
             commit('setSelectedCountry', data)
+        },
+        setItemForPage({ commit }, data){
+            commit('setItemForPage', data)
         },
     },
     modules: {

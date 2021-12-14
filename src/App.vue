@@ -42,15 +42,28 @@
   export default {
     name: 'App',
     computed: {
-      showBack(){
-        return location.pathname !== '/'
-      },
       ...mapState([
         'baseUrl'
-      ])
+      ]),
+    },
+    methods: {
+      setSizePagination(){
+        if(window.innerWidth > 960){
+          this.$store.dispatch('setItemForPage', 3)
+        }else{
+          this.$store.dispatch('setItemForPage', 10)
+        }
+      }
     },
     mounted() {
       this.$store.dispatch('getData')
+      this.setSizePagination()
+      window.addEventListener('resize', _ => {
+        this.setSizePagination()
+      })
+    },
+    unmounted() {
+      window.removeEventListener('resize')
     },
   };
 </script>

@@ -10,22 +10,19 @@ import { mapState } from 'vuex'
 
 export default {
     name: 'Paginate',
-    props: [
-        'itemForPage'
-    ],
     computed: {
         totalPages(){
-            return Math.ceil(this.$store.state.countries.length / this.itemForPage) > 0 ? Math.ceil(this.$store.state.countries.length / this.itemForPage) : 1
+            return Math.ceil(this.$store.state.countries.length / this.$store.state.itemForPage) > 0 ? Math.ceil(this.$store.state.countries.length / this.$store.state.itemForPage) : 1
         },
-        ...mapState(['countries'])
+        ...mapState(['countries', 'itemForPage'])
     },
-    watch: {
-        countries: function(){
+    methods: {
+        updatePagination(){
             this.$store.dispatch('setTotalPage', this.totalPages).then(async _ => {
                 let paginat = []
                 let offSet = 0
                 for (let index = 0; index < this.totalPages; index++) {
-                    paginat.push([...Array(10).keys()].map(i => {
+                    paginat.push([...Array(this.$store.state.itemForPage).keys()].map(i => {
                         return (this.$store.state.countries[offSet++])
                     }))
                 }
@@ -33,12 +30,17 @@ export default {
                     paginat[i] = paginat[i].filter(el => el !== undefined)
                 }
                 await this.$store.dispatch('setPagination', paginat)
+                await this.$store.dispatch('setPage', 1)
             })
+        }
+    },
+    watch: {
+        countries: function(){
+            this.updatePagination()
+        },
+        itemForPage: function(){
+            this.updatePagination()
         }
     },
 }
 </script>
-
-<style>
-
-</style>

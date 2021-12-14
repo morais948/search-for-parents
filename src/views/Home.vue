@@ -12,7 +12,7 @@
     </v-row>
     <v-row>
       <v-col col="12" class="d-flex justify-center">
-        <Paginate :item-for-page="10" />
+        <Paginate />
       </v-col>
     </v-row>
   </v-container>
