@@ -1,19 +1,13 @@
-# teste-vue-mova
+<h1>Projeto feito para fins didáticos</h1>
 
-## Project setup
+<h2><a href="https://search-for-parents.netlify.app/">Link do projeto funcionando :tada:</a></h2>
+
+## Como instalar
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Como rodar o projeto
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
