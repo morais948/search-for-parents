@@ -12,7 +12,7 @@ export default new Vuex.Store({
         page: 1,
         totalPages: 1,
         pagination: [],
-        selectedCountry: null,
+        selectedCountry: [],
         itemForPage: 3,
     },
     mutations: {
@@ -67,6 +67,16 @@ export default new Vuex.Store({
         setItemForPage({ commit }, data){
             commit('setItemForPage', data)
         },
+        async loadingNeighboringCountries({ dispatch }){
+            let neighboring = []
+            if(this.state.selectedCountry.borders){
+                for (const cod of this.state.selectedCountry.borders) {
+                    let res = await axios.get(`${this.state.baseUrl}/alpha/${cod}`)
+                    neighboring.push(...res.data)
+                }
+            }
+            await dispatch('setCountries', neighboring)
+        }
     },
     modules: {
     }

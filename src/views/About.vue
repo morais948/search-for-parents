@@ -1,5 +1,5 @@
 <template>
-    <v-container @resize="() => console.log('foi')">
+    <v-container>
         <v-row>
             <v-col sm="12" md="6" class="d-flex justify-center align-center flex-column">
                 <v-container class="px-4 d-flex justify-center justify-md-end">
@@ -15,7 +15,7 @@
             <v-col sm="12" md="6" class="px-4 d-flex justify-end align-start flex-column">
                 <v-container class="px-4 d-flex justify-center align-sm-center align-md-start flex-column about">
                     <p>Nome: {{ $store.state.selectedCountry.name.common }}</p>
-                    <p>Capital: {{ $store.state.selectedCountry.capital[0] }}</p>
+                    <p v-if="$store.state.selectedCountry.capital">Capital: {{ $store.state.selectedCountry.capital[0] }}</p>
                     <p 
                         @click="selectRegionGoToHome($store.state.selectedCountry.region)" 
                         style="text-decoration: underline; text-decoration-color: blue; cursor: pointer;"
@@ -28,7 +28,8 @@
                 </v-container>
             </v-col>
         </v-row>
-        <strong class="mt-4 d-flex justify-center">Paízes Vizinhos:</strong>
+        <strong v-if="this.$store.state.selectedCountry.borders" class="mt-4 d-flex justify-center">Paízes Vizinhos:</strong>
+        <strong v-else class="mt-4 d-flex justify-center">Sem Paízes Vizinhos</strong>
         <v-row>
             <v-col col="12" class="d-flex justify-center">
                 <ShowCountry />
@@ -70,20 +71,12 @@ export default {
         ]),
     },
     methods: {
-        async neighboringCountries(){
-            let neighboring = []
-            for (const cod of this.$store.state.selectedCountry.borders) {
-                let res = await axios.get(`${this.baseUrl}/alpha/${cod}`)
-                neighboring.push(...res.data)
-            }
-            await this.$store.dispatch('setCountries', neighboring)
-        },
         selectRegionGoToHome(region){
             region && this.$router.push({ name: 'Home', params: { region } })
         }
     },
     mounted(){
-        this.neighboringCountries()
+        this.$store.dispatch('loadingNeighboringCountries')
     },
 }
 </script>

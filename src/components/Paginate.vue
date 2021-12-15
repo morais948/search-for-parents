@@ -1,5 +1,6 @@
 <template>
-    <v-pagination
+    <v-pagination 
+        v-if="$store.state.countries.length > 0"
         v-model="$store.state.page"
         :length="$store.state.totalPages"
     ></v-pagination>

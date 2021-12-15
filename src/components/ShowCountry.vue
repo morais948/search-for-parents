@@ -22,6 +22,7 @@ export default {
     methods: {
         async select(item){
             await this.$store.dispatch('setSelectedCountry', item)
+            await this.$store.dispatch('loadingNeighboringCountries')
             this.$router.push({ name: 'Country', params: { name: item.name.common } }).catch(el => alert('Você já está na rota desejada'))
         }
     },

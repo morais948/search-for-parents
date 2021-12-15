@@ -94,14 +94,12 @@
                 }
             }
         },
-        mounted() {
-            //montar a lógica aqui
-            /*
+        mounted() {            
             if(this.$router.currentRoute.params.region){
+                this.chooseFilter("Região")
                 this.defaultFilter = "Região"
                 this.defaultValue = this.$router.currentRoute.params.region
             }
-            */
         },
     }
 </script>
